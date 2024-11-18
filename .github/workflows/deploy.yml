@@ -11,17 +11,22 @@ jobs:
   deploy-on-pypi:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # all history
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y hub
+
       - name: Show Env
         run: | 
           python --version
           pip --version
           java --version
           javac --version
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # all history
 
       - name: Get All Tags
         run: git fetch --tags -f
